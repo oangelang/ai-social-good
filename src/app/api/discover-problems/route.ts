@@ -1,4 +1,5 @@
 import { anthropic, MODEL, getTextContent, extractJSON } from '@/lib/anthropic'
+import { STATIC_PROBLEMS } from '@/lib/static-data'
 
 export const maxDuration = 60
 
@@ -101,6 +102,12 @@ Return ONLY this JSON structure:
       }
     } catch {
       // Supabase also unavailable
+    }
+
+    // Final fallback: hardcoded static data
+    const staticProblems = STATIC_PROBLEMS[challengeId]
+    if (staticProblems?.length) {
+      return Response.json({ problems: staticProblems, source: 'seeded' })
     }
 
     return Response.json({ error: 'Failed to discover problems' }, { status: 500 })

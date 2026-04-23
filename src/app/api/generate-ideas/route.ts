@@ -1,4 +1,5 @@
 import { anthropic, MODEL, getTextContent, extractJSON } from '@/lib/anthropic'
+import { STATIC_IDEAS } from '@/lib/static-data'
 
 export const maxDuration = 60
 
@@ -49,6 +50,12 @@ export async function POST(request: Request) {
     } catch {
       // Supabase unavailable, fall through to API
     }
+  }
+
+  // Static fallback before requiring API key
+  const staticIdeas = STATIC_IDEAS[problemId]
+  if (staticIdeas?.length >= 2) {
+    return Response.json({ ideas: staticIdeas })
   }
 
   if (!process.env.ANTHROPIC_API_KEY) {
