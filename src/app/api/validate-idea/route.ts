@@ -2,9 +2,8 @@ import { anthropic, MODEL, getTextContent, extractJSON } from '@/lib/anthropic'
 
 export const maxDuration = 60
 
-const SYSTEM = `You are a social impact startup analyst. \
-Use web search to find real existing products, apps, NGOs, or initiatives that address the same problem \
-as the idea described. Be specific — name actual products with real URLs. \
+const SYSTEM = `You are a social impact startup analyst with broad knowledge of existing products, apps, NGOs, and initiatives. \
+Name real existing products with their actual URLs — draw on your training knowledge. \
 Assign similarity scores honestly (0.0 = totally different, 1.0 = identical). \
 Then explain how the described idea could carve out a unique position. \
 Respond with ONLY a valid JSON object — no markdown fences, no explanation, no preamble.`
@@ -46,7 +45,6 @@ export async function POST(request: Request) {
           cache_control: { type: 'ephemeral' },
         },
       ],
-      tools: [{ type: 'web_search_20260209', name: 'web_search' }],
       messages: [
         {
           role: 'user',
