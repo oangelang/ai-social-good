@@ -270,7 +270,7 @@ export default function ChallengesGrid({ challenges }: { challenges: Challenge[]
       try { data = JSON.parse(text) } catch { throw new Error('Request timed out — try again') }
       if (!res.ok) throw new Error((data.error as string) ?? 'Failed to discover problems')
       setProblems(data.problems as Problem[])
-      setProblemSource(data.source as string)
+      setProblemSource(data.source as 'seeded' | 'live')
       setPhase('problems')
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Discovery failed')
