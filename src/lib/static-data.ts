@@ -1,18 +1,21 @@
-export const STATIC_PROBLEMS: Record<string, { title: string; description: string; location: string; source_url: string }[]> = {
+export const STATIC_PROBLEMS: Record<string, { id: string; title: string; description: string; location: string; source_url: string }[]> = {
   'a1000000-0000-0000-0000-000000000001': [
     {
+      id: 'b1000000-0000-0000-0000-000000000001',
       title: 'Informal workers locked out of credit',
       description: 'Over 1.4 billion adults globally are unbanked. Informal workers — street vendors, day laborers, gig workers — cannot access credit or savings products because they lack formal employment records or collateral.',
       location: 'Sub-Saharan Africa, South & Southeast Asia',
       source_url: 'https://www.worldbank.org/en/topic/financialinclusion',
     },
     {
+      id: 'b1000000-0000-0000-0000-000000000002',
       title: 'Remittance fees trap migrant families',
       description: 'Migrant workers send $860B home annually, but fees average 6.2% — costing families over $50B that should reach the poorest households. In Africa, fees exceed 8% on average.',
       location: 'Global, highest impact in Africa & Latin America',
       source_url: 'https://www.worldbank.org/en/topic/migrationremittancesdiasporaissues',
     },
     {
+      id: 'b1000000-0000-0000-0000-000000000003',
       title: 'Emergency cash assistance fails to reach crisis-affected households',
       description: 'During floods, droughts, and conflict displacement, government cash transfers often fail the people who need them most — due to broken ID systems, no mobile accounts, and last-mile logistics failures.',
       location: 'South Asia, East Africa',
@@ -21,18 +24,21 @@ export const STATIC_PROBLEMS: Record<string, { title: string; description: strin
   ],
   'a1000000-0000-0000-0000-000000000002': [
     {
+      id: 'b2000000-0000-0000-0000-000000000001',
       title: 'Smallholder farmers have no access to market price data',
       description: '500 million smallholder farms feed 70% of the developing world, yet most farmers sell at whatever price local middlemen offer — with no visibility into actual market rates. They lose 20–40% of potential income.',
       location: 'East Africa, South Asia',
       source_url: 'https://www.fao.org/smallfamily-farming/en/',
     },
     {
+      id: 'b2000000-0000-0000-0000-000000000002',
       title: 'Post-harvest food loss destroys 14% of global food supply',
       description: 'Across sub-Saharan Africa, 40% of food is lost between farm and fork — due to poor storage, lack of cold chain, and no early-warning for spoilage. This loss happens while millions go hungry nearby.',
       location: 'Sub-Saharan Africa',
       source_url: 'https://www.fao.org/platform-food-loss-waste/en/',
     },
     {
+      id: 'b2000000-0000-0000-0000-000000000003',
       title: 'School feeding programs collapse during supply shocks',
       description: 'National school meal programs in low-income countries are among the most effective hunger interventions, but they lack supply chain resilience — a drought or price spike can shut down programs serving millions of children.',
       location: 'West Africa, Central America',
@@ -41,18 +47,21 @@ export const STATIC_PROBLEMS: Record<string, { title: string; description: strin
   ],
   'a1000000-0000-0000-0000-000000000003': [
     {
+      id: 'b3000000-0000-0000-0000-000000000001',
       title: 'Coral reef bleaching is accelerating without early warning systems',
       description: "Scientists estimate 50% of the world's coral reefs have died since 1950. Current bleaching events are detected weeks late — by which time intervention is impossible. Real-time thermal monitoring at scale doesn't exist.",
       location: 'Great Barrier Reef, Southeast Asia, Caribbean',
       source_url: 'https://coralreefwatch.noaa.gov/',
     },
     {
+      id: 'b3000000-0000-0000-0000-000000000002',
       title: 'Fishing communities have no access to climate adaptation planning tools',
       description: 'Small-scale fishers — 600 million people depend on fisheries — face rapidly changing fish migration patterns due to ocean warming, but have no tools to model or adapt their fishing routes and timing.',
       location: 'Pacific Islands, Southeast Asia, West Africa',
       source_url: 'https://www.fao.org/fishery/en/topic/16901',
     },
     {
+      id: 'b3000000-0000-0000-0000-000000000003',
       title: 'Plastic waste monitoring in ocean gyres is manually intensive and costly',
       description: "The Great Pacific Garbage Patch is estimated at 1.6 million km², but tracking plastic accumulation zones still relies on manual boat surveys. Automated, AI-powered monitoring doesn't yet exist at scale.",
       location: 'Pacific Ocean, Atlantic Gyre',
@@ -61,18 +70,21 @@ export const STATIC_PROBLEMS: Record<string, { title: string; description: strin
   ],
   'a1000000-0000-0000-0000-000000000004': [
     {
+      id: 'b4000000-0000-0000-0000-000000000001',
       title: 'Community health workers lack digital tools for patient follow-up',
       description: "In low-income countries, community health workers (CHWs) are the primary point of care for 1 billion+ people — but they track patients on paper, miss follow-ups, and can't escalate urgent cases without walking to a clinic.",
       location: 'Sub-Saharan Africa, South Asia',
       source_url: 'https://www.who.int/teams/primary-health-care/community-health-workers',
     },
     {
+      id: 'b4000000-0000-0000-0000-000000000002',
       title: 'Medication counterfeiting kills 500,000 people annually in Africa',
       description: 'Up to 30% of medicines in low-income countries are substandard or falsified. Patients have no way to verify authenticity at point of purchase, and supply chains lack end-to-end verification infrastructure.',
       location: 'Sub-Saharan Africa, South & Southeast Asia',
       source_url: 'https://www.who.int/news-room/fact-sheets/detail/substandard-and-falsified-medical-products',
     },
     {
+      id: 'b4000000-0000-0000-0000-000000000003',
       title: 'Mental health crisis with no accessible first-line intervention tools',
       description: "Depression affects 280 million people globally, yet 75% receive no treatment in low-income countries. There aren't enough therapists — but there's growing evidence that structured digital CBT interventions can bridge the gap at scale.",
       location: 'Global, highest gap in low-income countries',
