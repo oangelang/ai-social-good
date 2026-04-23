@@ -1,5 +1,4 @@
 import { anthropic, MODEL, getTextContent, extractJSON } from '@/lib/anthropic'
-import { supabase } from '@/lib/supabase'
 
 export const maxDuration = 60
 
@@ -29,6 +28,7 @@ export async function POST(request: Request) {
     process.env.NEXT_PUBLIC_SUPABASE_URL !== 'your_supabase_project_url'
   ) {
     try {
+      const { supabase } = await import('@/lib/supabase')
       const { data: seeded } = await supabase
         .from('seeded_problems')
         .select('*')
@@ -88,6 +88,7 @@ Return ONLY this JSON structure:
 
     // Fall back to seeded problems from Supabase
     try {
+      const { supabase } = await import('@/lib/supabase')
       const { data: seeded } = await supabase
         .from('seeded_problems')
         .select('*')
