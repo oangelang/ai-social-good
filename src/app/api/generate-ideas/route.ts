@@ -19,10 +19,6 @@ export async function POST(request: Request) {
   const { problemTitle, problemDescription, challengeName, challengeId, problemId } =
     await request.json()
 
-  if (!process.env.ANTHROPIC_API_KEY) {
-    return Response.json({ error: 'API not configured' }, { status: 500 })
-  }
-
   // Serve from stored data first to save API credits
   if (
     process.env.NEXT_PUBLIC_SUPABASE_URL &&
@@ -53,6 +49,10 @@ export async function POST(request: Request) {
     } catch {
       // Supabase unavailable, fall through to API
     }
+  }
+
+  if (!process.env.ANTHROPIC_API_KEY) {
+    return Response.json({ error: 'Failed to generate ideas' }, { status: 500 })
   }
 
   try {

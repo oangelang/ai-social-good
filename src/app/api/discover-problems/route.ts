@@ -18,10 +18,6 @@ interface DiscoveredProblem {
 export async function POST(request: Request) {
   const { challengeId, challengeName, challengeDescription } = await request.json()
 
-  if (!process.env.ANTHROPIC_API_KEY) {
-    return Response.json({ error: 'API not configured' }, { status: 500 })
-  }
-
   // Serve from seeded problems first to save API credits
   if (
     process.env.NEXT_PUBLIC_SUPABASE_URL &&
@@ -42,6 +38,10 @@ export async function POST(request: Request) {
     } catch {
       // Supabase unavailable, fall through to API
     }
+  }
+
+  if (!process.env.ANTHROPIC_API_KEY) {
+    return Response.json({ error: 'Failed to discover problems' }, { status: 500 })
   }
 
   try {
