@@ -20,7 +20,19 @@ export async function POST(request: Request) {
   const { ideaTitle, ideaDescription, challengeName } = await request.json()
 
   if (!process.env.ANTHROPIC_API_KEY) {
-    return Response.json({ error: 'API not configured' }, { status: 500 })
+    return Response.json({
+      products: [
+        {
+          name: 'Live validation unavailable',
+          url: 'https://anthropic.com',
+          description:
+            'Web search validation requires an API key. Add ANTHROPIC_API_KEY to your environment to enable live competitive analysis.',
+          similarity_score: 0,
+        },
+      ],
+      differentiation:
+        'Live validation is not configured in this deployment. When enabled, this feature searches the web for real existing products, NGOs, and initiatives similar to your idea — and explains how your approach differs.',
+    })
   }
 
   try {
