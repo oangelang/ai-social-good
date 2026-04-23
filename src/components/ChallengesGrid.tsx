@@ -265,10 +265,12 @@ export default function ChallengesGrid({ challenges }: { challenges: Challenge[]
           challengeDescription: c.description,
         }),
       })
-      const data = await res.json()
-      if (!res.ok) throw new Error(data.error)
-      setProblems(data.problems)
-      setProblemSource(data.source)
+      const text = await res.text()
+      let data: Record<string, unknown>
+      try { data = JSON.parse(text) } catch { throw new Error('Request timed out — try again') }
+      if (!res.ok) throw new Error((data.error as string) ?? 'Failed to discover problems')
+      setProblems(data.problems as Problem[])
+      setProblemSource(data.source as string)
       setPhase('problems')
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Discovery failed')
@@ -293,9 +295,11 @@ export default function ChallengesGrid({ challenges }: { challenges: Challenge[]
           problemId: p.id,
         }),
       })
-      const data = await res.json()
-      if (!res.ok) throw new Error(data.error)
-      setIdeas(data.ideas)
+      const text = await res.text()
+      let data: Record<string, unknown>
+      try { data = JSON.parse(text) } catch { throw new Error('Request timed out — try again') }
+      if (!res.ok) throw new Error((data.error as string) ?? 'Failed to generate ideas')
+      setIdeas(data.ideas as Idea[])
       setPhase('ideas')
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Generation failed')
@@ -318,9 +322,15 @@ export default function ChallengesGrid({ challenges }: { challenges: Challenge[]
           challengeName: challenge?.name,
         }),
       })
-      const data = await res.json()
-      if (!res.ok) throw new Error(data.error)
-      setValidation(data)
+      const text = await res.text()
+      let data: Record<string, unknown>
+      try {
+        data = JSON.parse(text)
+      } catch {
+        throw new Error('Validation timed out — try again in a moment')
+      }
+      if (!res.ok) throw new Error((data.error as string) ?? 'Validation failed')
+      setValidation(data as unknown as ValidationResult)
       setPhase('validation')
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Validation failed')
