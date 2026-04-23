@@ -19,7 +19,7 @@ interface DiscoveredProblem {
 export async function POST(request: Request) {
   const { challengeId, challengeName, challengeDescription } = await request.json()
 
-  // Serve from seeded problems first to save API credits
+  // 1. Try Supabase seeded problems
   if (
     process.env.NEXT_PUBLIC_SUPABASE_URL &&
     process.env.NEXT_PUBLIC_SUPABASE_URL !== 'your_supabase_project_url'
@@ -37,10 +37,17 @@ export async function POST(request: Request) {
         return Response.json({ problems: seeded, source: 'seeded' })
       }
     } catch {
-      // Supabase unavailable, fall through to API
+      // Supabase unavailable
     }
   }
 
+  // 2. Static hardcoded fallback — always works, no env vars needed
+  const staticProblems = STATIC_PROBLEMS[challengeId]
+  if (staticProblems?.length) {
+    return Response.json({ problems: staticProblems, source: 'seeded' })
+  }
+
+  // 3. Claude API with web search
   if (!process.env.ANTHROPIC_API_KEY) {
     return Response.json({ error: 'Failed to discover problems' }, { status: 500 })
   }
@@ -86,30 +93,6 @@ Return ONLY this JSON structure:
     return Response.json({ problems: data.problems, source: 'live' })
   } catch (err) {
     console.error('Problem discovery failed:', err)
-
-    // Fall back to seeded problems from Supabase
-    try {
-      const { supabase } = await import('@/lib/supabase')
-      const { data: seeded } = await supabase
-        .from('seeded_problems')
-        .select('*')
-        .eq('challenge_id', challengeId)
-        .order('is_featured', { ascending: false })
-        .limit(3)
-
-      if (seeded?.length) {
-        return Response.json({ problems: seeded, source: 'seeded' })
-      }
-    } catch {
-      // Supabase also unavailable
-    }
-
-    // Final fallback: hardcoded static data
-    const staticProblems = STATIC_PROBLEMS[challengeId]
-    if (staticProblems?.length) {
-      return Response.json({ problems: staticProblems, source: 'seeded' })
-    }
-
     return Response.json({ error: 'Failed to discover problems' }, { status: 500 })
   }
 }
